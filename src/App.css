@@ -1,0 +1,270 @@
+:root {
+  --primary-color: #4f46e5;
+  --secondary-color: #0ea5e9;
+  --bg-gradient: linear-gradient(135deg, #f0fdf4 0%, #e0f2fe 100%);
+  --card-bg: rgba(255, 255, 255, 0.85);
+  --text-main: #1e293b;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg-gradient);
+  color: var(--text-main);
+  min-height: 100vh;
+}
+
+.app-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.main-title {
+  text-align: center;
+  color: var(--primary-color);
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Navigatsiya Menyusi */
+.nav-menu {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.nav-button {
+  padding: 0.8rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  background: white;
+  color: var(--primary-color);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.nav-button.active, .nav-button:hover {
+  background: var(--primary-color);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(79, 70, 229, 0.3);
+}
+
+/* Formalar va Kontentlar */
+.content-section {
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  padding: 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  animation: fadeIn 0.5s ease;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-weight: 600;
+}
+
+.form-group input {
+  padding: 0.8rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--secondary-color);
+}
+
+.submit-btn {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: white;
+  padding: 0.8rem 2rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: bold;
+  width: 100%;
+  transition: opacity 0.3s;
+}
+
+.submit-btn:hover {
+  opacity: 0.9;
+}
+
+/* Test Bo'limi */
+.test-box {
+  background: #f8fafc;
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  border-left: 5px solid var(--secondary-color);
+}
+
+/* Userlar Kartochkalari (Grid) */
+.users-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+.user-card {
+  background: white;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  text-align: center;
+  position: relative;
+  border: 1px solid #e2e8f0;
+}
+
+.badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #f1f5f9;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.avatar-circle {
+  width: 80px;
+  height: 80px;
+  background: #e0f2fe;
+  color: var(--secondary-color);
+  border-radius: 50%;
+  margin: 0 auto 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.user-info {
+  text-align: left;
+  margin-top: 1rem;
+}
+
+.user-info p {
+  margin: 0.5rem 0;
+  font-size: 0.95rem;
+  border-bottom: 1px dashed #f1f5f9;
+  padding-bottom: 0.3rem;
+}
+
+.user-info strong {
+  color: #64748b;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+/* ==========================================================================
+   RESPONSIVE DESIGN (Media Queries)
+   ========================================================================== */
+
+/* 1. Planshetlar uchun (Maksimal kenglik 768px gacha bo'lgan ekranlar) */
+@media (max-width: 768px) {
+  .app-container {
+    padding: 1.5rem 1rem; /* Ekran chetidagi bo'shliqni kamaytiramiz */
+  }
+
+  .main-title {
+    font-size: 2rem; /* Sarlavha hajmini biroz kichraytiramiz */
+    margin-bottom: 1.5rem;
+  }
+
+  .nav-menu {
+    gap: 0.8rem; /* Tugmalar orasidagi masofani qisqartiramiz */
+    margin-bottom: 2rem;
+  }
+
+  .nav-button {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.95rem; /* Tugma ichidagi yozuvlarni moslashtiramiz */
+  }
+
+  .content-section {
+    padding: 1.5rem; /* Forma va kontent ichki paddingini kichraytiramiz */
+  }
+}
+
+/* 2. Telefonlar uchun (Maksimal kenglik 480px gacha bo'lgan ekranlar) */
+@media (max-width: 480px) {
+  .main-title {
+    font-size: 1.6rem; /* Kichik telefonlar uchun sarlavha */
+    letter-spacing: 0;
+  }
+
+  .nav-menu {
+    flex-direction: column; /* Tugmalarni ketma-ket (vertikal) joylashtiramiz */
+    gap: 0.6rem;
+    width: 100%;
+  }
+
+  .nav-button {
+    width: 100%; /* Tugmalar telefon ekranining eniga to'liq yoyiladi */
+    text-align: center;
+    border-radius: 12px; /* Vertikal holatda to'rtburchakroq dizayn chiroyli ko'rinadi */
+    padding: 0.8rem;
+  }
+
+  .content-section {
+    padding: 1.2rem;
+    border-radius: 14px; /* Burchaklarni biroz yumshatamiz */
+  }
+
+  .form-group input {
+    padding: 0.7rem; /* Inputlarni bosishga qulay, lekin ixcham qilamiz */
+    font-size: 0.95rem;
+  }
+
+  .submit-btn {
+    padding: 0.8rem 1rem;
+    font-size: 0.95rem;
+    white-space: normal; /* Tugma ichidagi uzun matn telefon sig'masa pastga tushadi */
+    line-height: 1.4;
+  }
+
+  .test-box {
+    padding: 1rem; /* Test savollari qutisini ixchamlashtiramiz */
+  }
+
+  .test-box label {
+    display: block;
+    margin-bottom: 0.5rem; /* Radio tugmalarni bosish telefonda oson bo'lishi uchun */
+  }
+
+  .users-grid {
+    grid-template-columns: 1fr; /* Telefon ekranida kartochkalar aniq 1 qatordan chiqadi */
+    gap: 1.2rem;
+  }
+  
+  .user-card {
+    padding: 1.2rem;
+  }
+}
