@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import './App.css';
+// Toastify kutubxonasini va uning stillarini import qilamiz
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   // Aktiv sahifani boshqarish: 'amaliyot', 'test', 'userlar'
   const [activeTab, setActiveTab] = useState('amaliyot');
 
-  // Global foydalanuvchilar ro'yxati (Diagrammadagi 3 ta namuna boshlang'ich qiymat sifatida)
+  // Global foydalanuvchilar ro'yxati
   const [users, setUsers] = useState([
     { id: 1, fullname: "Aliyev Vali", kurs: "Frontend", verselLink: "https://project1.vercel.app", testNatija: "25/30", ball: 85 },
     { id: 2, fullname: "Olimova Malika", kurs: "Node.js", verselLink: "https://project2.vercel.app", testNatija: "28/30", ball: 92 },
@@ -21,9 +24,15 @@ function App() {
   // 1. Amaliyot topshirish funksiyasi
   const handleAmaliyotSubmit = (e) => {
     e.preventDefault();
-    if (!amaliyotForm.fullname || !amaliyotForm.link) return alert("Hamma maydonlarni to'ldiring!");
+    
+    // Xatolik xabari (1-rasmdagi qizil ogohlantirish)
+    if (!amaliyotForm.fullname || !amaliyotForm.link) {
+      return toast.error("Barcha maydonlarni to'ldiring!", {
+        position: "top-right",
+        autoClose: 3000,
+      });
+    }
 
-    // Diagramma bo'yicha: Botga va Userlar sahifasiga boradi
     console.log("Telegram Botga yuborildi: ", amaliyotForm);
     
     const newUser = {
@@ -36,18 +45,34 @@ function App() {
     };
 
     setUsers([newUser, ...users]);
-    alert("Amaliyot muvaffaqiyatli topshirildi va Telegram botga yuborildi!");
+
+    // Muvaffaqiyatli xabar (2-rasmdagi yashil xabar)
+    toast.success("Guruh qo'shildi  ", {
+      position: "top-right",
+      autoClose: 3000,
+    });
+
     setAmaliyotForm({ fullname: '', link: '', kurs: 'React guruh' });
-    setActiveTab('userlar'); // Foydalanuvchini avtomatik userlar sahifasiga o'tkazish
+    
+    // Foydalanuvchini biroz kechikish bilan o'tkazamiz (xabarni ko'rib olishi uchun)
+    setTimeout(() => {
+      setActiveTab('userlar');
+    }, 1000);
   };
 
   // 2. Testni yakunlash funksiyasi
   const handleTestSubmit = (e) => {
     e.preventDefault();
-    if (!testForm.fullname) return alert("Ismingizni kiriting!");
+    
+    // Ism kiritilmagandagi xatolik
+    if (!testForm.fullname) {
+      return toast.error("Barcha maydonlarni to'ldiring!", {
+        position: "top-right",
+        autoClose: 3000,
+      });
+    }
 
-    // TO'G'RILANDI: O'zgaruvchi nomi birlashtirildi (togriJavoblarSoni)
-    const togriJavoblarSoni = Object.keys(testForm.belgilanganJavoblar).length; // Shunchaki simulyatsiya
+    const togriJavoblarSoni = Object.keys(testForm.belgilanganJavoblar).length; 
     const umumiyBall = togriJavoblarSoni * 10; 
 
     console.log("Telegram Botga test natijasi ketdi:", testForm.fullname, umumiyBall);
@@ -57,19 +82,30 @@ function App() {
       fullname: testForm.fullname,
       kurs: "Onlayn Test",
       verselLink: "Topshirilmagan",
-      // TO'G'RILANDI: Bu yerda ham o'zgaruvchi to'g'ri chaqirildi
       testNatija: `${togriJavoblarSoni}/30`,
       ball: umumiyBall
     };
 
     setUsers([newUserWithTest, ...users]);
-    alert(`Test tugadi! Natija: ${togriJavoblarSoni}/30 botga va foydalanuvchilar ro'yxatiga yuborildi.`);
+
+    // Test yakunlangandagi muvaffaqiyat xabari
+    toast.success("Test natijalari saqlandi!  ", {
+      position: "top-right",
+      autoClose: 3000,
+    });
+
     setTestForm({ fullname: '', belgilanganJavoblar: {}, isSubmited: true });
-    setActiveTab('userlar');
+    
+    setTimeout(() => {
+      setActiveTab('userlar');
+    }, 1000);
   };
 
   return (
     <div className="app-container">
+      {/* Toast xabarlari ekranda chiqishi uchun konteyner */}
+      <ToastContainer />
+
       <h1 className="main-title">Bilimlarimizni sinab ko'rish</h1>
 
       {/* Tepadagi Menu bo'limi */}
@@ -142,14 +178,12 @@ function App() {
                 <label>To'liq ismingiz (Fullname):</label>
                 <input 
                   type="text" 
-                  required
                   placeholder="Ismingizni kiriting..."
                   value={testForm.fullname}
                   onChange={(e) => setTestForm({...testForm, fullname: e.target.value})}
                 />
               </div>
 
-              {/* Namuna sifatida 2 ta savol */}
               <div className="test-box">
                 <p><strong>1-Savol:</strong> React-da component nima?</p>
                 <label><input type="radio" name="q1" onChange={() => setTestForm({...testForm, belgilanganJavoblar: {...testForm.belgilanganJavoblar, q1: true}})} /> Qayta ishlatiladigan kod bo'lagi</label> <br/>
